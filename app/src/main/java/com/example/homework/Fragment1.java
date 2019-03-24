@@ -28,9 +28,10 @@ public class Fragment1 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
 
         int size = (savedInstanceState == null) ? 100 : savedInstanceState.getInt("Count", 100);
-        Log.d("myl", String.valueOf(size));
+        Log.d("myl", "OnCreate_Fragment");
 
         for (int i = 1; i <= size; i++) {
             list.add(i + "");
@@ -44,6 +45,7 @@ public class Fragment1 extends Fragment {
                 inflater.inflate(R.layout.fragment1, container, false);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         addButton = rootView.findViewById(R.id.button1);
+        Log.d("myl", "OnCreate_Fragment_View");
         return rootView;
     }
 
@@ -73,6 +75,7 @@ public class Fragment1 extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle state) {
         super.onSaveInstanceState(state);
         state.putInt("Count", list.size());
+        Log.d("myl", "OnSaveInstance");
     }
 
 }
