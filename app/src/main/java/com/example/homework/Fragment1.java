@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -20,9 +19,7 @@ import java.util.Objects;
 public class Fragment1 extends Fragment {
 
     private RecyclerView recyclerView;
-    private RecycleViewAdapter adapter;
     private ArrayList<String> list = new ArrayList<>();
-    private TextView counterView;
     private Button addButton;
 
     @Override
@@ -30,8 +27,8 @@ public class Fragment1 extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        int size = (savedInstanceState == null) ? 100 : savedInstanceState.getInt("Count", 100);
         Log.d("myl", "OnCreate_Fragment");
+        int size = (savedInstanceState == null) ? 100 : savedInstanceState.getInt("Count", 100);
 
         for (int i = 1; i <= size; i++) {
             list.add(i + "");
@@ -53,7 +50,6 @@ public class Fragment1 extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 3 : 4));
         recyclerView.setAdapter(new RecycleViewAdapter(getContext(), list));
     }
@@ -70,12 +66,18 @@ public class Fragment1 extends Fragment {
         });
     }
 
-
     @Override
     public void onSaveInstanceState(@NonNull Bundle state) {
         super.onSaveInstanceState(state);
         state.putInt("Count", list.size());
         Log.d("myl", "OnSaveInstance");
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 3 : 4));
+
     }
 
 }
