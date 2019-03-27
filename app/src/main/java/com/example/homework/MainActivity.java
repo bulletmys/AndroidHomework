@@ -4,11 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 
@@ -16,15 +16,18 @@ public class MainActivity extends AppCompatActivity {
 
     public static String EXTRA_VALUE = "CONST";
     public static String BROADCAST_ACTION = "SomeThing";
+    BroadcastReceiver br;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        openFragment(new Fragment1());
+        Log.d("myl", "onCreate_Main");
+        if (savedInstanceState == null)
+            openFragment(new Fragment1());
 
-        BroadcastReceiver br = new BroadcastReceiver() {
+        br = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Fragment2 numberFragment = new Fragment2();
@@ -51,5 +54,12 @@ public class MainActivity extends AppCompatActivity {
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.commit();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("myl", "OnDestroyMain");
+        unregisterReceiver(br);
     }
 }

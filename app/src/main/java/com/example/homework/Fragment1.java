@@ -25,7 +25,6 @@ public class Fragment1 extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
 
         Log.d("myl", "OnCreate_Fragment");
         int size = (savedInstanceState == null) ? 100 : savedInstanceState.getInt("Count", 100);
@@ -47,8 +46,31 @@ public class Fragment1 extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("myl", "OnDestroy");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("myl", "OnDestroyView");
+        recyclerView = null;
+        addButton = null;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("myl", "OnDetach");
+        recyclerView = null;
+        addButton = null;
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d("myl", "OnActivityCreated");
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 3 : 4));
         recyclerView.setAdapter(new RecycleViewAdapter(getContext(), list));
@@ -57,6 +79,8 @@ public class Fragment1 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        Log.d("myl", "OnStart");
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,12 +96,4 @@ public class Fragment1 extends Fragment {
         state.putInt("Count", list.size());
         Log.d("myl", "OnSaveInstance");
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT ? 3 : 4));
-
-    }
-
 }
