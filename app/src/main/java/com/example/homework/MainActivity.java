@@ -14,7 +14,8 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String EXTRA_VALUE = "CONST";
+    public static String VALUE = "NUM";
+    public static String COLOR = "COLOR";
     public static String BROADCAST_ACTION = "SomeThing";
     BroadcastReceiver br;
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Fragment2 numberFragment = new Fragment2();
-                numberFragment.setNumber(intent.getStringExtra(EXTRA_VALUE));
+                numberFragment.setNumber(intent.getStringExtra(VALUE), intent.getStringExtra(COLOR));
                 Log.d("myl", "onCreate");
 
                 openFragment(numberFragment);

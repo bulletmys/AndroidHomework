@@ -9,11 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Objects;
-
 public class Fragment2 extends Fragment {
 
     private String number;
+    private int color;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -23,8 +22,9 @@ public class Fragment2 extends Fragment {
         return inflater.inflate(R.layout.fragment2, container, false);
     }
 
-    public void setNumber(String number) {
+    public void setNumber(String number, String color) {
         this.number = number;
+        this.color = Integer.parseInt(color);
     }
 
     @Override
@@ -34,11 +34,7 @@ public class Fragment2 extends Fragment {
         if (view != null) {
             TextView title = view.findViewById(R.id.big_text);
             title.setText(number);
-            if (Integer.parseInt(number) % 2 == 0) {
-                title.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.red));
-            } else {
-                title.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.blue));
-            }
+            title.setTextColor(color);
         }
     }
 

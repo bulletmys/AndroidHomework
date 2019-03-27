@@ -25,7 +25,8 @@ class RecycleViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View v) {
                 Log.d("myl", "OnClick");
                 Intent intent = new Intent(MainActivity.BROADCAST_ACTION);
-                intent.putExtra(MainActivity.EXTRA_VALUE, mTextView.getText().toString());
+                intent.putExtra(MainActivity.VALUE, mTextView.getText().toString());
+                intent.putExtra(MainActivity.COLOR, String.valueOf(mTextView.getCurrentTextColor()));
                 itemView.getContext().sendBroadcast(intent);
             }
         });
